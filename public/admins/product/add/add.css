@@ -1,0 +1,13 @@
+.select2-selection__choice {
+    background-color: #28844d !important;
+}
+.image_item {
+    width: 150px;
+    height: 120px;
+}
+.container_image {
+    margin-top: 10px;
+}
+.container_image_item {
+    margin-right: 10px;
+}
