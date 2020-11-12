@@ -123,5 +123,6 @@
         </a>
       </li>
     </ul>
+    <a href="{{ route('logout') }}">Logout</a>
   </nav>
   <!-- /.navbar -->

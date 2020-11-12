@@ -78,6 +78,7 @@
               <div class="form-group">
                 <label>Chọn danh mục</label>
                 <select class="form-control @error('category_id') is-invalid @enderror select2_cate" name="category_id" required>
+                  <option value=""></option>
                   {!! $htmlOption !!}
                 </select>
                 @error('category_id')
@@ -86,7 +87,7 @@
               </div>
               <div class="form-group">
                 <label>Nhập nội dung</label>
-              <textarea class="form-control @error('contents') is-invalid @enderror" name="contents" rows="5" required>{{ old('contents') }}</textarea>
+              <textarea class="form-control @error('contents') is-invalid @enderror" name="contents" rows="5" placeholder="Nhập nội dung" required>{{ old('contents') }}</textarea>
                 @error('contents')
                   <div class="invalid-feedback">{{$message}}</div>
                 @enderror

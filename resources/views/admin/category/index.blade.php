@@ -34,7 +34,10 @@
                             <td class="col-md-9">{{ $category->name }}</td>
                             <td class="col-md-2">
                                 <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-info">Edit</a>
-                                <a href="{{ route('categories.delete', $category->id) }}" class="btn btn-danger">Delete</a>
+                                <a 
+                                  href=""
+                                  data-url="{{ route('categories.delete', $category->id) }}"
+                                  class="btn btn-danger action_delete">Delete</a>
                             </td>
                         </tr>
                     @endforeach
@@ -52,4 +55,9 @@
   </div>
   <!-- /.content-wrapper -->
 
+@endsection
+
+@section('js')
+    <script src="{{ asset('vendors/sweetAlert2/sweetalert2@10.js') }}"></script>
+    <script src="{{ asset('admins/index.js') }}"></script>
 @endsection

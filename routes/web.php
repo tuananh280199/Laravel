@@ -13,12 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/admin', 'App\Http\Controllers\AdminController@login');
-Route::post('/admin', 'App\Http\Controllers\AdminController@postLogin');
+Route::get('/login', 'App\Http\Controllers\AdminController@login')->name('login');
+Route::post('/administrator', 'App\Http\Controllers\AdminController@postLogin')->name('postLogin');
+Route::get('/logout', 'App\Http\Controllers\AdminController@logout')->name('logout');
 
 Route::get('/administrator', function () {
     return view('administrator');
-});
+})->name('admin');
 
 Route::prefix('administrator')->group(function () {
     Route::prefix('menus')->group(function () {
@@ -153,6 +154,64 @@ Route::prefix('administrator')->group(function () {
         Route::get('/delete/{id}', [
             'as' => 'settings.delete',
             'uses' => 'App\Http\Controllers\SettingController@delete'
+        ]);
+    });
+
+    Route::prefix('users')->group(function () {
+        Route::get('/', [
+            'as' => 'users.index',
+            'uses' => 'App\Http\Controllers\UserController@index'
+        ]);
+        Route::get('/create', [
+            'as' => 'users.create',
+            'uses' => 'App\Http\Controllers\UserController@create'
+        ]);
+        Route::post('/createSubmit', [
+            'as' => 'users.createSubmit',
+            'uses' => 'App\Http\Controllers\UserController@createSubmit'
+        ]);
+        Route::post('/createSubmit', [
+            'as' => 'users.createSubmit',
+            'uses' => 'App\Http\Controllers\UserController@createSubmit'
+        ]);
+        Route::get('/edit/{id}', [
+            'as' => 'users.edit',
+            'uses' => 'App\Http\Controllers\UserController@edit'
+        ]);
+        Route::post('/update/{id}', [
+            'as' => 'users.update',
+            'uses' => 'App\Http\Controllers\UserController@update'
+        ]);
+        Route::get('/delete/{id}', [
+            'as' => 'users.delete',
+            'uses' => 'App\Http\Controllers\UserController@delete'
+        ]);
+    });
+
+    Route::prefix('roles')->group(function () {
+        Route::get('/', [
+            'as' => 'roles.index',
+            'uses' => 'App\Http\Controllers\RoleController@index'
+        ]);
+        Route::get('/create', [
+            'as' => 'roles.create',
+            'uses' => 'App\Http\Controllers\RoleController@create'
+        ]);
+        Route::post('/createSubmit', [
+            'as' => 'roles.createSubmit',
+            'uses' => 'App\Http\Controllers\RoleController@createSubmit'
+        ]);
+        Route::get('/edit/{id}', [
+            'as' => 'roles.edit',
+            'uses' => 'App\Http\Controllers\RoleController@edit'
+        ]);
+        Route::post('/update/{id}', [
+            'as' => 'roles.update',
+            'uses' => 'App\Http\Controllers\RoleController@update'
+        ]);
+        Route::get('/delete/{id}', [
+            'as' => 'roles.delete',
+            'uses' => 'App\Http\Controllers\RoleController@delete'
         ]);
     });
 });

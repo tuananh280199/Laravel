@@ -49,7 +49,7 @@
               </div>
               <div class="form-group">
                 <label>Mô tả</label>
-              <textarea class="form-control @error('description') is-invalid @enderror" name="description" rows="5" required>{{ $slider->description }}</textarea>
+              <textarea class="form-control @error('description') is-invalid @enderror" name="description" placeholder="Nhập mô tả" rows="5" required>{{ $slider->description }}</textarea>
                 @error('description')
                   <div class="invalid-feedback">{{$message}}</div>
                 @enderror

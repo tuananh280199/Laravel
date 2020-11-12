@@ -42,7 +42,7 @@
               </div>
               <div class="form-group">
                 <label>Mô tả</label>
-              <textarea class="form-control @error('description') is-invalid @enderror" name="description" rows="5" required>{{ old('description') }}</textarea>
+              <textarea class="form-control @error('description') is-invalid @enderror" name="description" rows="5" placeholder="Nhập mô tả" required>{{ old('description') }}</textarea>
                 @error('description')
                   <div class="invalid-feedback">{{$message}}</div>
                 @enderror
