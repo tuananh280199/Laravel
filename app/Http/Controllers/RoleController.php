@@ -23,7 +23,7 @@ class RoleController extends Controller
 
     function index()
     {
-        $roles = $this->role->latest()->simplePaginate(5);
+        $roles = $this->role->latest()->simplePaginate(10);
         return view('admin.role.index', compact('roles'));
     }
 

@@ -20,7 +20,9 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
-          <a href="{{ route('products.create') }}" class="btn btn-success float-right m-1">Add</a>
+            @can('product-create')
+              <a href="{{ route('products.create') }}" class="btn btn-success float-right m-1">Add</a>
+            @endcan
           </div>
          <div class="col-md-12">
             <table class="table">
@@ -45,11 +47,15 @@
                             <td class="col-md-2">{{ number_format($product->price) }}</td>
                             <td class="col-md-2">{{ optional($product->category)->name }}</td>
                             <td class="col-md-2">
+                              @can('product-edit')
                                 <a href="{{ route('products.edit', $product->id) }}" class="btn btn-info">Edit</a>
+                              @endcan
+                              @can('product-delete')
                                 <a 
                                   href=""
                                   data-url="{{ route('products.delete', $product->id) }}"
                                   class="btn btn-danger action_delete">Delete</a>
+                              @endcan
                             </td>
                         </tr>
                     @endforeach

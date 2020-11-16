@@ -1,0 +1,1 @@
+<h1 style="height: 100%; display: flex; justify-content: center; align-items: center;">Bạn không có quyền thực hiện chức năng này</h1>

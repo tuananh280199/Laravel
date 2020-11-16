@@ -16,7 +16,9 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
-          <a href="{{ route('settings.create') }}" class="btn btn-success float-right m-1">Add</a>
+            @can('setting-create')
+              <a href="{{ route('settings.create') }}" class="btn btn-success float-right m-1">Add</a>
+            @endcan
           </div>
          <div class="col-md-12">
             <table class="table">
@@ -35,11 +37,15 @@
                             <td class="col-md-4">{{ $setting->config_key }}</td>
                             <td class="col-md-5">{{ $setting->config_value }}</td>
                             <td class="col-md-2">
+                              @can('setting-edit')
                                 <a href="{{ route('settings.edit', $setting->id) }}" class="btn btn-info">Edit</a>
+                              @endcan
+                              @can('setting-delete')
                                 <a 
                                   href=""
                                   data-url="{{ route('settings.delete', $setting->id) }}"
                                   class="btn btn-danger action_delete">Delete</a>
+                              @endcan
                             </td>
                         </tr>
                     @endforeach

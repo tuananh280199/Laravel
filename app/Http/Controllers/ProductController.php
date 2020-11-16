@@ -43,7 +43,7 @@ class ProductController extends Controller
 
     function index()
     {
-        $products = $this->product->latest()->simplePaginate(5);
+        $products = $this->product->latest()->simplePaginate(10);
         return view('admin.product.index', compact('products'));
     }
 

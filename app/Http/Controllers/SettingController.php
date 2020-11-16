@@ -19,7 +19,7 @@ class SettingController extends Controller
 
     function index()
     {
-        $settings = $this->setting->latest()->simplePaginate(5);
+        $settings = $this->setting->latest()->simplePaginate(10);
         return view('admin.setting.index', compact('settings'));
     }
 
