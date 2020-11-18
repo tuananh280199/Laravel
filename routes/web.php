@@ -13,13 +13,54 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//client
+Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
+Route::get('/category/{slug}/{id}', [
+    'as' => 'category.product',
+    'uses' => 'App\Http\Controllers\CategoryController@showProductByCategory'
+]);
+Route::prefix('products')->group(function () {
+    Route::get('/', [
+        'as' => 'products.all',
+        'uses' => 'App\Http\Controllers\ProductController@showAllProduct',
+    ]);
+    Route::get('/detail/{id}', [
+        'as' => 'products.detail',
+        'uses' => 'App\Http\Controllers\ProductController@detail',
+    ]);
+    Route::get('/add-to-cart/{id}', [
+        'as' => 'products.add_to_cart',
+        'uses' => 'App\Http\Controllers\ProductController@addToCart',
+    ]);
+    Route::get('/cart', [
+        'as' => 'cart',
+        'uses' => 'App\Http\Controllers\ProductController@showCart',
+    ]);
+    Route::get('/cart_update', [
+        'as' => 'cart.update',
+        'uses' => 'App\Http\Controllers\ProductController@updateCart',
+    ]);
+    Route::get('/cart_delete', [
+        'as' => 'cart.delete',
+        'uses' => 'App\Http\Controllers\ProductController@deleteCart',
+    ]);
+});
+Route::prefix('checkout')->group(function () {
+    Route::get('/login', [
+        'as' => 'checkout.login',
+        'uses' => 'App\Http\Controllers\CheckoutController@loginCheckout',
+    ]);
+});
+
+
+//admin
 Route::get('/login', 'App\Http\Controllers\AdminController@login')->name('login');
 Route::post('/administrator', 'App\Http\Controllers\AdminController@postLogin')->name('postLogin');
 Route::get('/logout', 'App\Http\Controllers\AdminController@logout')->name('logout');
 
 Route::get('/administrator', function () {
     return view('administrator');
-})->name('admin');
+})->name('admin')->middleware('auth');
 
 Route::prefix('administrator')->group(function () {
     Route::prefix('menus')->group(function () {

@@ -9,9 +9,9 @@ class AdminController extends Controller
 {
     function login()
     {
-        // if (Auth::check()) {
-        //     return redirect()->route('admin');
-        // }
+        if (Auth::check()) {
+            return redirect()->route('admin');
+        }
         return view('login');
     }
 

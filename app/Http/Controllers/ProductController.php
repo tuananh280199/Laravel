@@ -11,6 +11,7 @@ use App\Traits\StorageImageTrait;
 use App\components\Recusive;
 use App\Http\Requests\ProductRequest;
 use App\Traits\DeleteItemModelTrait;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -80,13 +81,14 @@ class ProductController extends Controller
                 }
             }
             //insert data tags for product table
+            $tagIds = [];
             if (!empty($request->tags)) {
                 foreach ($request->tags as $tagItem) {
                     $tagInstance =  $this->tag->firstOrCreate(['name' => $tagItem]);
                     $tagIds[] = $tagInstance->id;
                 }
-                $product->tags()->attach($tagIds);
             }
+            $product->tags()->attach($tagIds);
             DB::commit();
             return redirect()->route('products.index');
         } catch (\Exception $err) {
@@ -131,13 +133,14 @@ class ProductController extends Controller
                 }
             }
             //update data tags for product table
+            $tagIds = [];
             if (!empty($request->tags)) {
                 foreach ($request->tags as $tagItem) {
                     $tagInstance =  $this->tag->firstOrCreate(['name' => $tagItem]);
                     $tagIds[] = $tagInstance->id;
                 }
-                $product->tags()->sync($tagIds); //sync : thêm những tag chưa có vào, có rồi ko thêm
             }
+            $product->tags()->sync($tagIds); //sync : thêm những tag chưa có vào, có rồi ko thêm
             DB::commit();
             return redirect()->route('products.index');
         } catch (\Exception $err) {
@@ -149,5 +152,85 @@ class ProductController extends Controller
     function delete($id)
     {
         return $this->deleteItemTrait($id, $this->product);
+    }
+
+    //client
+    function showAllProduct(Request $request)
+    {
+        $categories = $this->category->where('parent_id', 0)->get();
+        $products = $this->product->latest()->simplePaginate(12);
+        if ($request->name) $products = $this->product->where('name', 'like', '%' . $request->name . '%')->latest()->simplePaginate(12);
+        return view('client.product.product', compact('categories', 'products'));
+    }
+
+    function detail($id)
+    {
+        $categories = $this->category->where('parent_id', 0)->get();
+        $product = $this->product->find($id);
+        return view('client.product.detail', compact('categories', 'product'));
+    }
+
+    function addToCart($id)
+    {
+        // session()->flush('cart'); // xóa session 
+        $product = $this->product->find($id);
+        $cart = session()->get('cart');
+        if (isset($cart[$id])) //đã có sp này trong cart
+        {
+            $cart[$id]['quantity'] = $cart[$id]['quantity'] + 1;
+        } else {
+            $cart[$id] = [
+                'name' => $product->name,
+                'image' => $product->feature_image_path,
+                'price' => $product->price,
+                'quantity' => 1
+            ];
+        }
+        session()->put('cart', $cart);
+        return response()->json([
+            'code' => 200,
+            'message' => 'success'
+        ], 200);
+    }
+
+    function showCart()
+    {
+        $carts = session()->get('cart');
+        if (isset($carts)) {
+            $categories = $this->category->where('parent_id', 0)->get();
+            return view('client.product.cart', compact('categories', 'carts'));
+        }
+    }
+
+    function updateCart(Request $request)
+    {
+        if ($request->id && $request->quantity) {
+            $carts = session()->get('cart'); //lấy cart cũ
+            $carts[$request->id]['quantity'] = $request->quantity; //cập nhật quantity
+            session()->put('cart', $carts); //cập nhật lại session
+            $carts = session()->get('cart'); //lấy cart mới
+            $categories = $this->category->where('parent_id', 0)->get();
+            $cartComponent = view('client.product.component.cart_component', compact('categories', 'carts'))->render();
+            return response()->json([
+                'code' => 200,
+                'cart_component' => $cartComponent
+            ], 200);
+        }
+    }
+
+    function deleteCart(Request $request)
+    {
+        if ($request->id) {
+            $carts = session()->get('cart'); //lấy cart cũ
+            unset($carts[$request->id]); //Xóa phần tử khỏi mảng
+            session()->put('cart', $carts); //cập nhật lại session
+            $carts = session()->get('cart'); //lấy cart mới
+            $categories = $this->category->where('parent_id', 0)->get();
+            $cartComponent = view('client.product.component.cart_component', compact('categories', 'carts'))->render();
+            return response()->json([
+                'code' => 200,
+                'cart_component' => $cartComponent
+            ], 200);
+        }
     }
 }

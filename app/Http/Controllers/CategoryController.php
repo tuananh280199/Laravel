@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\components\Recusive;
+use App\Models\Product;
 use App\Traits\DeleteItemModelTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -12,10 +13,12 @@ class CategoryController extends Controller
 {
     use DeleteItemModelTrait;
     private $category;
+    private $product;
 
-    function __construct(Category $category)
+    function __construct(Category $category, Product $product)
     {
         $this->category = $category;
+        $this->product = $product;
     }
 
     function getCategory($parentId)
@@ -77,5 +80,13 @@ class CategoryController extends Controller
     function delete($id)
     {
         return $this->deleteItemTrait($id, $this->category);
+    }
+
+    //client
+    public function showProductByCategory($slug, $cate_id)
+    {
+        $categories = $this->category->where('parent_id', 0)->get();
+        $products = $this->product->where('category_id', $cate_id)->simplePaginate(12);
+        return view('client.product.category.list', compact('categories', 'products'));
     }
 }
