@@ -172,7 +172,7 @@ class ProductController extends Controller
 
     function addToCart($id)
     {
-        // session()->flush('cart'); // xóa session 
+        // session()->forget('cart'); // xóa session 
         $product = $this->product->find($id);
         $cart = session()->get('cart');
         if (isset($cart[$id])) //đã có sp này trong cart
@@ -199,6 +199,9 @@ class ProductController extends Controller
         if (isset($carts)) {
             $categories = $this->category->where('parent_id', 0)->get();
             return view('client.product.cart', compact('categories', 'carts'));
+        } else {
+            $categories = $this->category->where('parent_id', 0)->get();
+            return view('client.product.cart', compact('categories'));
         }
     }
 

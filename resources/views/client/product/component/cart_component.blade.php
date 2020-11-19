@@ -3,7 +3,7 @@
         <div class="container">
             <ul>
                 <li><i class="fa fa-home" aria-hidden="true"></i><a href="{{route('home')}}">Home</a><span>|</span></li>
-                <li>Checkout</li>
+                <li>Cart</li>
             </ul>
         </div>
     </div>
@@ -28,7 +28,7 @@
 <!-- about -->
         <div class="privacy about">
             <h3>Bills</h3>
-            
+            @if(isset($carts))
           <div class="checkout-right delete_cart_url" data-url="{{route('cart.delete')}}">
                 <table class="timetable_sub update_cart_url" data-url="{{route('cart.update')}}">
                     <thead>
@@ -43,22 +43,22 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($carts as $id => $cartItem)
-                            <tr class="rem1">
-                                <td class="invert">{{$id}}</td>
-                                <td class="invert-image"><a href=""><img src="{{ $cartItem['image'] }}" alt=" " class="img-responsive"></a></td>
-                                <td class="invert">
-                                    <input type="number" class="quantity" value="{{ $cartItem['quantity'] }}">
-                                </td>
-                                <td class="invert">{{ $cartItem['name'] }}</td>
-                                
-                                <td class="invert">${{ $cartItem['price'] }}</td>
-                                <td class="invert">
-                                    <a href=""  data-id="{{$id}}" class="btn btn-primary cart_update">Update</a>
-                                    <a href=""  data-id="{{$id}}" class="btn btn-danger cart_delete">Delete</a>
-                                </td>
-                            </tr>
-                        @endforeach
+                            @foreach($carts as $id => $cartItem)
+                                <tr class="rem1">
+                                    <td class="invert">{{$id}}</td>
+                                    <td class="invert-image"><a href=""><img src="{{ $cartItem['image'] }}" alt=" " class="img-responsive"></a></td>
+                                    <td class="invert">
+                                        <input type="number" class="quantity" value="{{ $cartItem['quantity'] }}">
+                                    </td>
+                                    <td class="invert">{{ $cartItem['name'] }}</td>
+                                    
+                                    <td class="invert">${{ $cartItem['price'] }}</td>
+                                    <td class="invert">
+                                        <a href=""  data-id="{{$id}}" class="btn btn-primary cart_update">Update</a>
+                                        <a href=""  data-id="{{$id}}" class="btn btn-danger cart_delete">Delete</a>
+                                    </td>
+                                </tr>
+                            @endforeach
                     </tbody>
                 </table>
             </div>
@@ -66,7 +66,7 @@
                 $total = 0;   
             @endphp
             <div class="checkout-left">	
-                <div class="col-md-5 checkout-left-basket" style="padding-right: 50px">
+                <div class="col-md-12 checkout-left-basket" style="padding: 20px 50px 50px 50px ">
                     <h4>Invoice Details</h4>
                     <ul>
                         @foreach($carts as $id => $cartItem)
@@ -85,48 +85,20 @@
                         >Total <i>-</i> <span>${{$total}}</span></li>
                     </ul>
                 </div>
-                <div class="col-md-7 address_form_agile" style="padding-left: 20px">
-                      <h4>Add a new Details</h4>
-                <form action="payment.html" method="post" class="creditly-card-form agileinfo_form">
-                                    <section class="creditly-wrapper wthree, w3_agileits_wrapper">
-                                        <div class="information-wrapper">
-                                            <div class="first-row form-group">
-                                                <div class="controls">
-                                                    <label class="control-label">Full name: </label>
-                                                    <input class="billing-address-name form-control" type="text" name="name" placeholder="Full name">
-                                                </div>
-                                                <div class="w3_agileits_card_number_grids">
-                                                    <div class="w3_agileits_card_number_grid_right">
-                                                        <div class="controls">
-                                                            <label class="control-label">Email: </label>
-                                                         <input class="form-control" type="email" placeholder="Email">
-                                                        </div>
-                                                    </div>
-                                                    <div class="w3_agileits_card_number_grid_left">
-                                                        <div class="controls">
-                                                            <label class="control-label">Mobile number:</label>
-                                                            <input class="form-control" type="text" placeholder="Mobile number">
-                                                        </div>
-                                                    </div>
-                                                    <div class="clear"> </div>
-                                                </div>
-                                                <div class="controls">
-                                                    <label class="control-label">Town/City: </label>
-                                                 <input class="form-control" type="text" placeholder="Town/City">
-                                                </div>
-                                            </div>
-                                            <div class="checkout-right-basket">
-                                                <a href="payment.html">Check Out<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
-                                            </div>
-                                        </div>
-                                    </section>
-                                </form>
+                <div class="col-md-12 address_form_agile" style="padding-right: 50px ">
+                    <div class="checkout-right-basket">
+                        <a href="{{ route('checkout.login') }}">Check Out<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </div>
+                </div>
             
                 <div class="clearfix"> </div>
                 
             </div>
-
+            @else
+                <div class="checkout-right">
+                    <h1 style="text-align: center">Empty shopping cart, invite you to shop</h1>
+                </div>
+            @endif
         </div>
 <!-- //about -->
         </div>

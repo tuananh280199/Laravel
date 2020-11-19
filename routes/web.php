@@ -46,11 +46,28 @@ Route::prefix('products')->group(function () {
     ]);
 });
 Route::prefix('checkout')->group(function () {
+    Route::get('/', [
+        'as' => 'checkout.index',
+        'uses' => 'App\Http\Controllers\CheckoutController@index',
+    ]);
     Route::get('/login', [
         'as' => 'checkout.login',
         'uses' => 'App\Http\Controllers\CheckoutController@loginCheckout',
     ]);
+    Route::get('/logout', [
+        'as' => 'checkout.logout',
+        'uses' => 'App\Http\Controllers\CheckoutController@logoutCheckout',
+    ]);
+    Route::post('/register', [
+        'as' => 'checkout.register',
+        'uses' => 'App\Http\Controllers\CheckoutController@registerCheckout',
+    ]);
 });
+Route::post('/login', [
+    'as' => 'login.customer',
+    'uses' => 'App\Http\Controllers\CheckoutController@loginCustomer'
+]);
+
 
 
 //admin
