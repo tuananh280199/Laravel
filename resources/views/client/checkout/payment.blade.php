@@ -40,51 +40,39 @@
         <div class="w3l_banner_nav_right">
 <!-- about -->
         <div class="privacy about">
-            <h3>Checkout</h3>
+            <h3>Payment</h3>
             <div class="checkout-left">	
                 <div class="col-md-12 address_form_agile" style="padding-left: 20px">
-                      <h4>Fill In Shipping Information </h4>
-                            <form action="{{route('checkout.saveCheckoutCustomer')}}" method="post" class="creditly-card-form agileinfo_form">
+                      <h4 style="margin: 30px 0 50px 0;">Choose method payment </h4>
+                            <form action="{{route('checkout.order')}}" method="post" class="creditly-card-form agileinfo_form">
                                 {{csrf_field()}}
-                                <section class="creditly-wrapper wthree, w3_agileits_wrapper">
-                                    <div class="information-wrapper">
-                                        <div class="first-row form-group">
-                                            <div class="controls">
-                                                <label class="control-label">Full name: </label>
-                                                <input class="billing-address-name form-control" type="text" name="name" placeholder="Full name" required>
-                                            </div>
-                                            <div class="w3_agileits_card_number_grids">
-                                                <div class="w3_agileits_card_number_grid_right">
-                                                    <div class="controls">
-                                                        <label class="control-label">Email: </label>
-                                                     <input class="form-control" type="email" name="email" placeholder="Email" required>
-                                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row form-group">
+                                                <div class="col-md-1"></div>
+                                                <div class="col-md-4">
+                                                    <input type="radio" name="payment_option" value="1">
+                                                    <label>Pay via ATM card</label>
                                                 </div>
-                                                <div class="w3_agileits_card_number_grid_left">
-                                                    <div class="controls">
-                                                        <label class="control-label">Mobile number:</label>
-                                                        <input class="form-control" type="text" name="phone" placeholder="Mobile number" required>
-                                                    </div>
+                                                <div class="col-md-4">
+                                                    <input type="radio" name="payment_option" value="2" checked>
+                                                    <label>Payment in cash</label>
                                                 </div>
-                                                <div class="clear"> </div>
-                                            </div>
-                                            <div class="controls">
-                                                <label class="control-label">Town/City: </label>
-                                                <input class="form-control" type="text" name="address" placeholder="Town/City" required>
-                                            </div>
-                                            <div class="controls">
-                                                <label class="control-label">Order notes: </label>
-                                                <textarea class="form-control" name="note" placeholder="Order notes" rows="5" style="width: 100%; !important" required></textarea>
+                                                <div class="col-md-3">
+                                                    <input type="radio" name="payment_option" value="3">
+                                                    <label>Installment</label>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="checkout-left-basket">
+                                        <div class="col-md-12" style="height: 50px;"></div>
+                                        <div class="checkout-left-basket ">
                                             <a href="{{ route('cart') }}" class="btn btn-danger" style="padding: 15px 20px 15px 20px"><- Review Cart</a>
                                         </div>
                                         <div class="checkout-right-basket">
-                                            <input type="submit" value="Send ->" name="send_shipping" class="btn btn-primary" style="padding: 15px 20px 15px 20px">
+                                            <input type="submit" value="Send Order ->" name="send_order" class="btn btn-primary" style="padding: 15px 20px 15px 20px">
                                         </div>
                                     </div>
-                                </section>
+                           
                             </form>
                     </div>
             

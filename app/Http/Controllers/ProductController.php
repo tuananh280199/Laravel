@@ -180,6 +180,7 @@ class ProductController extends Controller
             $cart[$id]['quantity'] = $cart[$id]['quantity'] + 1;
         } else {
             $cart[$id] = [
+                'id' => $product->id,
                 'name' => $product->name,
                 'image' => $product->feature_image_path,
                 'price' => $product->price,

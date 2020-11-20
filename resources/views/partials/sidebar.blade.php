@@ -87,6 +87,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ route('orders.manager') }}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Orders
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

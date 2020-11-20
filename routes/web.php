@@ -62,6 +62,18 @@ Route::prefix('checkout')->group(function () {
         'as' => 'checkout.register',
         'uses' => 'App\Http\Controllers\CheckoutController@registerCheckout',
     ]);
+    Route::post('/save', [
+        'as' => 'checkout.saveCheckoutCustomer',
+        'uses' => 'App\Http\Controllers\CheckoutController@saveCheckoutCustomer',
+    ]);
+    Route::get('/payment', [
+        'as' => 'checkout.payment',
+        'uses' => 'App\Http\Controllers\CheckoutController@payment',
+    ]);
+    Route::post('/order', [
+        'as' => 'checkout.order',
+        'uses' => 'App\Http\Controllers\CheckoutController@sendOrder',
+    ]);
 });
 Route::post('/login', [
     'as' => 'login.customer',
@@ -311,6 +323,19 @@ Route::prefix('administrator')->group(function () {
         Route::post('/createSubmit', [
             'as' => 'permissions.createSubmit',
             'uses' => 'App\Http\Controllers\PermissionController@createSubmit'
+        ]);
+    });
+
+    Route::prefix('orders')->group(function () {
+        Route::get('/', [
+            'as' => 'orders.manager',
+            'uses' => 'App\Http\Controllers\OrderController@index',
+            'middleware' => 'can:order-list'
+        ]);
+        Route::get('/detail/{id}', [
+            'as' => 'order.detail',
+            'uses' => 'App\Http\Controllers\OrderController@detail',
+            'middleware' => 'can:order-detail'
         ]);
     });
 });

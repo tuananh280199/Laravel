@@ -41,6 +41,11 @@ return [
         'create-permission' => 'create_permission',
         'edit-permission' => 'edit_permission',
         'delete-permission' => 'delete_permission',
+
+        'list-order' => 'list_order',
+        'create-order' => 'create_order',
+        'detail-order' => 'edit_order',
+        'delete-order' => 'delete_order',
     ],
     'module' => [
         'menu',
@@ -51,6 +56,7 @@ return [
         'user',
         'role',
         'permission',
+        'order',
     ],
     'permission_module' => [
         'list',
