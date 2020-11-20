@@ -14,7 +14,7 @@
         <div class="products-breadcrumb">
             <div class="container">
                 <ul>
-                    <li><i class="fa fa-home" aria-hidden="true"></i><a href="#">Home</a><span>|</span></li>
+                    <li><i class="fa fa-home" aria-hidden="true"></i><a href="{{route('home')}}">Home</a><span>|</span></li>
                 </ul>
             </div>
         </div>
@@ -45,7 +45,7 @@
                                     <h3>{{$slider->name}}</h3>
                                     <p>{{$slider->description}}</p>
                                     <div class="more">
-                                        <a href="products.html" class="button--saqui button--round-l button--text-thick" data-text="Shop now">Shop now</a>
+                                        <a href="{{route('products.all')}}" class="button--saqui button--round-l button--text-thick" data-text="Shop now">Shop now</a>
                                     </div>
                                 </div>
                             </li>
@@ -87,7 +87,7 @@
                                             <div class="snipcart-thumb">
                                                 <a href="{{ route('products.detail', $product->id) }}"><img title=" " alt=" " src="{{$product->feature_image_path}}" /></a>		
                                                 <p>{{$product->name}}</p>
-                                                <h4>${{ number_format($product->price) }}.00</h4>
+                                                <h4>${{ $product->price }}</h4>
                                                 {{-- <h4>{{$product->price}}</h4> --}}
                                             </div>
                                             <div class="snipcart-details top_brand_home_details">
@@ -128,7 +128,7 @@
                                     <img src="/client/images/7.jpg" alt=" " class="img-responsive" />
                                     <div class="w3l_fresh_vegetables_grid1_rel_pos">
                                         <div class="more m1">
-                                            <a href="products.html" class="button--saqui button--round-l button--text-thick" data-text="Shop now">Shop now</a>
+                                            <a href="{{route('products.all')}}" class="button--saqui button--round-l button--text-thick" data-text="Shop now">Shop now</a>
                                         </div>
                                     </div>
                                 </div>

@@ -58,6 +58,7 @@
               <div class="form-group">
                 <label >Giá sản phẩm</label>
                 <input type="number" 
+                  step=0.01
                   class="form-control @error('price') is-invalid @enderror" 
                   name="price"
                   placeholder="Nhập giá sản phẩm"

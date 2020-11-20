@@ -38,7 +38,7 @@
             </div>
             <div class="w3l_banner_nav_right">
                 <div class="w3ls_w3l_banner_nav_right_grid">
-                    <h3 style="margin-top: 10px;">Products</h3>
+                    <h3 style="margin-top: 20px;">Products</h3>
                     <div class="agile_top_brands_grids">
                         @foreach($products as $product)
                         <div class="col-md-3 top_brand_left" style="margin-bottom: 20px;">
@@ -51,7 +51,7 @@
                                                 <div class="snipcart-thumb">
                                                     <a href="{{ route('products.detail', $product->id) }}"><img title=" " alt=" " src="{{$product->feature_image_path}}" /></a>		
                                                     <p>{{$product->name}}</p>
-                                                    <h4>${{ number_format($product->price) }}.00</h4>
+                                                    <h4>${{ $product->price }}</h4>
                                                     {{-- <h4>{{$product->price}}</h4> --}}
                                                 </div>
                                                 <div class="snipcart-details top_brand_home_details">

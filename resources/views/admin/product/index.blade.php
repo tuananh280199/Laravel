@@ -44,7 +44,7 @@
                             <td class="col-md-2">
                                 <img src="{{ $product->feature_image_path }}" class="product_image_setting" alt="">
                             </td>
-                            <td class="col-md-2">${{ number_format($product->price) }}</td>
+                            <td class="col-md-2">${{ $product->price }}</td>
                             <td class="col-md-2">{{ optional($product->category)->name }}</td>
                             <td class="col-md-2">
                               @can('product-edit')

@@ -143,11 +143,14 @@ class CheckoutController extends Controller
             $result = $this->order_detail->create($data_orderDetail);
         }
         if ($data_payment['payment_method'] == 1) {
+            session()->forget('cart');
             echo 'Pay via ATM card';
         } else if ($data_payment['payment_method'] == 2) {
+            session()->forget('cart');
             $categories = $this->category->where('parent_id', 0)->get();
             return view('client.checkout.handcash', compact('categories'));
         } else {
+            session()->forget('cart');
             echo 'Installment';
         }
     }

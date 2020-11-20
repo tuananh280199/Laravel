@@ -62,7 +62,7 @@
                     success: function(data) {
                         if(data.code === 200) {
                             $('.cart_wrapper').html(data.cart_component);
-                            // alert("Cập nhật thành công");
+                            alert("Cập nhật thành công");
                         }
                     },
                     error: function() {
