@@ -22,7 +22,7 @@ class HomeController extends Controller
 
     function index()
     {
-        $sliders = $this->slider->latest()->get();
+        $sliders = $this->slider->latest()->take(3)->get();
         $categories = $this->category->where('parent_id', 0)->get();
         $products = $this->product->latest()->take(8)->get();
         return view("client.home", compact('sliders', 'categories', 'products'));
