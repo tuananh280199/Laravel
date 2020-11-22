@@ -26,9 +26,10 @@ class MenuController extends Controller
         return $htmlOption;
     }
 
-    function index()
+    function index(Request $request)
     {
         $menus = $this->menu->latest()->simplePaginate(10);
+        if ($request->name) $menus = $this->menu->where('name', 'like', '%' . $request->name . '%')->latest()->simplePaginate(10);
         return view("admin.menu.index", compact('menus'));
     }
 

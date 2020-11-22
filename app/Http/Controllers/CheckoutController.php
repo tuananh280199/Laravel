@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CustomerRequest;
 use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Order;
@@ -64,7 +65,7 @@ class CheckoutController extends Controller
         return redirect()->route('checkout.login');
     }
 
-    function registerCheckout(Request $request)
+    function registerCheckout(CustomerRequest $request)
     {
         // session()->forget('customer_id'); // xóa session 
         $data = [

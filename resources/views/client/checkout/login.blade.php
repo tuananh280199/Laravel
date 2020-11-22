@@ -50,6 +50,11 @@
 				  </div>
 				  <div class="form">
 					<h2>Login to your account</h2>
+					@if($errors->any())
+					<div class="alert alert-danger" role="alert">
+						Register fail. Please fix the following errors
+					</div>
+					@endif
 					@if($login_fail !== null) 
 						<p style="color: #FF2D20; margin-bottom: 10px;">{{$login_fail}}</p>
 					@endif
@@ -57,22 +62,37 @@
 					  {{csrf_field()}}
 					  <input type="email" name="email" placeholder="Email Address" required>
 					  <input type="password" name="password" placeholder="Password" required>
-					  <input type="checkbox" name="remember_me" style="margin-bottom: 20px;"> Remember me
 					  <input type="submit" value="Login">
 					</form>
 				  </div>
 				  <div class="form">
 					<h2>Create an account</h2>
+					@if($errors->any())
+					<div class="alert alert-danger" role="alert">
+						Register fail. Please fix the following errors
+					</div>
+					@endif
 				  	<form action="{{route('checkout.register')}}" method="post">
 					  {{csrf_field()}}
-					  <input type="text" name="name" placeholder="Name" required>
-					  <input type="email" name="email" placeholder="Email Address" required>
-					  <input type="password" name="password" placeholder="Password" required>
-					  <input type="text" name="phone" placeholder="Phone Number" required>
+					  <input type="text" class="@error('name') is-invalid @enderror" name="name" placeholder="Name" required>
+					  @error('name')
+					  	<div class="alert alert-danger invalid-feedback">{{$message}}</div>
+					  @enderror
+					  <input type="email" class="@error('email') is-invalid @enderror" name="email" placeholder="Email Address" required>
+					  @error('email')
+					  	<div class="alert alert-danger invalid-feedback">{{$message}}</div>
+				  	  @enderror 
+					  <input type="password" class="@error('password') is-invalid @enderror" name="password" placeholder="Password" required>
+					  @error('password')
+					  	<div class="alert alert-danger invalid-feedback">{{$message}}</div>
+				  	  @enderror 
+					  <input type="text" class="@error('phone') is-invalid @enderror" name="phone" placeholder="Phone Number" required>
+					  @error('phone')
+					  	<div class="alert alert-danger invalid-feedback">{{$message}}</div>
+				  	  @enderror 
 					  <input type="submit" value="Register">
 					</form>
 				  </div>
-				  <div class="cta"><a href="#">Forgot your password?</a></div>
 				</div>
 			</div>
 			<script>

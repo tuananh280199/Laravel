@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SliderRequest;
 use App\Models\Slider;
+use Illuminate\Http\Request;
 use App\Traits\DeleteItemModelTrait;
 use App\Traits\StorageImageTrait;
 use Illuminate\Support\Facades\Log;
@@ -19,9 +20,10 @@ class SliderController extends Controller
         $this->slider = $slider;
     }
 
-    function index()
+    function index(Request $request)
     {
         $sliders = $this->slider->latest()->simplePaginate(10);
+        if ($request->name) $sliders = $this->slider->where('name', 'like', '%' . $request->name . '%')->latest()->simplePaginate(10);
         return view('admin.slider.index', compact('sliders'));
     }
 

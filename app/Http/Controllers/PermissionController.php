@@ -16,9 +16,10 @@ class PermissionController extends Controller
         $this->permission = $permission;
     }
 
-    function index()
+    function index(Request $request)
     {
         $permissions = $this->permission->latest()->simplePaginate(10);
+        if ($request->name) $permissions = $this->permission->where('name', 'like', '%' . $request->name . '%')->latest()->simplePaginate(10);
         return view('admin.permission.index', compact('permissions'));
     }
 

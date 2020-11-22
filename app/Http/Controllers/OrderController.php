@@ -24,11 +24,31 @@ class OrderController extends Controller
         $this->order_details = $order_details;
     }
 
-    function index()
+    function index(Request $request)
     {
         $allOrder = $this->order
             ->join('customers', 'orders.customer_id', '=', 'customers.id')
             ->select('orders.*', 'customers.name')
+            ->orderBy('orders.id', 'desc')
+            ->simplePaginate(10);
+        if ($request->name) {
+            $allOrder = $this->order
+                ->join('customers', 'orders.customer_id', '=', 'customers.id')
+                ->select('orders.*', 'customers.name')
+                ->where('name', 'like', '%' . $request->name . '%')
+                ->orderBy('orders.id', 'desc')
+                ->simplePaginate(10);
+        }
+        if ($request->price) $allOrder = $this->order
+            ->join('customers', 'orders.customer_id', '=', 'customers.id')
+            ->select('orders.*', 'customers.name')
+            ->where('order_total', $request->price)
+            ->orderBy('orders.id', 'desc')
+            ->simplePaginate(10);
+        if ($request->status) $allOrder = $this->order
+            ->join('customers', 'orders.customer_id', '=', 'customers.id')
+            ->select('orders.*', 'customers.name')
+            ->where('order_status', 'like', '%' . $request->status . '%')
             ->orderBy('orders.id', 'desc')
             ->simplePaginate(10);
         return view('admin.order.index', compact('allOrder'));

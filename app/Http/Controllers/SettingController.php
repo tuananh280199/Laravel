@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SettingRequest;
 use App\Models\Setting;
 use App\Traits\DeleteItemModelTrait;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class SettingController extends Controller
@@ -17,9 +18,10 @@ class SettingController extends Controller
         $this->setting = $setting;
     }
 
-    function index()
+    function index(Request $request)
     {
         $settings = $this->setting->latest()->simplePaginate(10);
+        if ($request->name) $settings = $this->setting->where('config_key', 'like', '%' . $request->name . '%')->latest()->simplePaginate(10);
         return view('admin.setting.index', compact('settings'));
     }
 

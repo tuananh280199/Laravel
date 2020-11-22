@@ -22,9 +22,10 @@ class UserController extends Controller
         $this->role = $role;
     }
 
-    function index()
+    function index(Request $request)
     {
         $users = $this->user->latest()->simplePaginate(10);
+        if ($request->name) $users = $this->user->where('name', 'like', '%' . $request->name . '%')->latest()->simplePaginate(10);
         return view('admin.user.index', compact('users'));
     }
 

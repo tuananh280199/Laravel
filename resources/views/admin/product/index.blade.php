@@ -19,7 +19,22 @@
     <div class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-7">
+            <form class="form-inline d-flex active-pink-4 m-1" action="{{ route('products.index') }}">
+              <input value="{{ \Request::get('name') }}" name="name" class="form-control form-control-sm d-flex" type="text" placeholder="Name product" aria-label="Name" style="margin-right: 5px">
+              <input value="{{ \Request::get('price') }}" name="price" class="form-control form-control-sm d-flex" type="number" step=0.1 placeholder="Price product" aria-label="Price" style="margin-right: 5px">
+              <select name="category" id="" class="form-control form-control-sm" style="margin-right: 5px">
+                <option value="">--- Choose Category ---</option>
+                @if(isset($categories))
+                  @foreach($categories as $category)
+                    <option value="{{$category->id}}" {{ \Request::get('category') == $category->id ? "selected='selected'" : "" }}>{{$category->name}}</option>
+                  @endforeach
+                @endif
+              </select>
+              <button class="btn btn-outline-danger btn-rounded btn-sm my-0 waves-effect waves-light" type="submit">Search</button>
+            </form>
+          </div>
+          <div class="col-md-5">
             @can('product-create')
               <a href="{{ route('products.create') }}" class="btn btn-success float-right m-1">Add</a>
             @endcan

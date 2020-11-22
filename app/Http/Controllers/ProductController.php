@@ -42,10 +42,14 @@ class ProductController extends Controller
         return $htmlOption;
     }
 
-    function index()
+    function index(Request $request)
     {
+        $categories = $this->category->latest()->simplePaginate(10);
         $products = $this->product->latest()->simplePaginate(10);
-        return view('admin.product.index', compact('products'));
+        if ($request->name) $products = $this->product->where('name', 'like', '%' . $request->name . '%')->latest()->simplePaginate(10);
+        if ($request->price) $products = $this->product->where('price', $request->price)->latest()->simplePaginate(10);
+        if ($request->category) $products = $this->product->where('category_id', $request->category)->latest()->simplePaginate(10);
+        return view('admin.product.index', compact('products', 'categories'));
     }
 
     function create()

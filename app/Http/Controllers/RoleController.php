@@ -21,9 +21,10 @@ class RoleController extends Controller
         $this->permission = $permission;
     }
 
-    function index()
+    function index(Request $request)
     {
         $roles = $this->role->latest()->simplePaginate(10);
+        if ($request->name) $roles = $this->role->where('name', 'like', '%' . $request->name . '%')->latest()->simplePaginate(10);
         return view('admin.role.index', compact('roles'));
     }
 
