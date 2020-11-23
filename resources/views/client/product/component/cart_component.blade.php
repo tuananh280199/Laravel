@@ -29,7 +29,7 @@
         <div class="privacy about">
             <h3>Bills</h3>
             @if(isset($carts) && count($carts) > 0)
-          <div class="checkout-right delete_cart_url" data-url="{{route('cart.delete')}}">
+          <div class="checkout-right delete_cart_url" data-url="{{route('cart.delete')}}" style="padding: 0 20px 0 20px ">
                 <table class="timetable_sub update_cart_url" data-url="{{route('cart.update')}}">
                     <thead>
                         <tr>

@@ -30,10 +30,10 @@
                                 @endphp
                                 @if(!isset($customer_id))
                                     <li><a href="{{ route('checkout.login') }}">Login</a></li> 
+                                    <li><a href="{{ route('checkout.login') }}">Sign Up</a></li>
                                 @else
                                     <li><a href="{{ route('checkout.logout') }}">Logout</a></li>
                                 @endif
-                                <li><a href="{{ route('checkout.login') }}">Sign Up</a></li>
                             </ul>
                         </div>                  
                     </div>	

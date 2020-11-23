@@ -5,7 +5,8 @@
 @endsection
 
 @section('js')
-    <script src='{{ asset('client/js/okzoom.js') }}'></script>
+    <script src="{{ asset('client/js/jquery-3.5.1.min.js') }}"></script>
+    <script src="{{ asset('client/js/okzoom.js') }}"></script>
     <script>
     $(function(){
         $('#example').okzoom({
@@ -16,7 +17,6 @@
         });
     });
     </script>
-    <script src="{{ asset('client/js/jquery-3.5.1.min.js') }}"></script>
 @endsection
 
 @section('content')
@@ -48,33 +48,20 @@
                 </nav>
             </div>
             <div class="w3l_banner_nav_right">
-                <div class="agileinfo_single" style="padding: 0 20px 20px 20px;">
+                <div class="agileinfo_single" style="padding: 10px 20px 20px 20px;">
                     <h5 style="text-align: center;">{{ $product->name }}</h5>
-                    <div class="col-md-4 agileinfo_single_left">
-                        <img id="example" src="{{ $product->feature_image_path }}" alt=" " class="img-responsive" width="330" height="320"/>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3 agileinfo_single_left">
+                        <img id="example" src="{{ $product->feature_image_path }}" alt=" " class="img-responsive" width="266" height="250"/>
                     </div>
-                    <div class="col-md-8 agileinfo_single_right" style="margin-top: 10px;">
-                        <div class="rating1">
-                            <span class="starRating">
-                                <input id="rating5" type="radio" name="rating" value="5">
-                                <label for="rating5">5</label>
-                                <input id="rating4" type="radio" name="rating" value="4">
-                                <label for="rating4">4</label>
-                                <input id="rating3" type="radio" name="rating" value="3" checked>
-                                <label for="rating3">3</label>
-                                <input id="rating2" type="radio" name="rating" value="2">
-                                <label for="rating2">2</label>
-                                <input id="rating1" type="radio" name="rating" value="1">
-                                <label for="rating1">1</label>
-                            </span>
-                        </div>
+                    <div class="col-md-8 agileinfo_single_right">
                         <div class="w3agile_description">
                             <h4>Description :</h4>
                             <p>{{ $product->content }}</p>
                         </div>
                         <div class="snipcart-item block">
                             <div class="snipcart-thumb agileinfo_single_right_snipcart">
-                                <h4 style="text-align: start">${{ number_format($product->price) }}.00</h4>
+                                <h4 style="text-align: start;">Price : <p style="display: inline; color: #0032BD;">${{ $product->price }}</p></h4>
                             </div>
                             <div class="snipcart-details agileinfo_single_right_details">
                                 <input 
@@ -126,28 +113,6 @@
                 });
         </script>
     <!-- //here ends scrolling icon -->
-    <script src="/client/js/minicart.js"></script>
-    <script>
-            paypal.minicart.render();
-    
-            paypal.minicart.cart.on('checkout', function (evt) {
-                var items = this.items(),
-                    len = items.length,
-                    total = 0,
-                    i;
-    
-                // Count the number of each item in the cart
-                for (i = 0; i < len; i++) {
-                    total += items[i].get('quantity');
-                }
-    
-                if (total < 1) {
-                    alert('The minimum order quantity is 1. Please add more to your shopping cart before checking out');
-                    evt.preventDefault();
-                }
-            });
-    
-        </script>
         <script>
             function addToCart(event) {
                 event.preventDefault()
